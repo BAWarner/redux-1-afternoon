@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import store, { ACTION_TYPES } from '../../store';
 
 class Ingredients extends Component {
   constructor(props) {
     super(props);
+    const reduxState = store.getState();
+    let { ingredients } = reduxState;
     this.state = {
-      ingredients: [],
+      ingredients,
       input: ""
     };
+  }
+  componentDidMount(){
+    store.subscribe( () => this.setState({ ingredients: store.getState().ingredients }) );
+    console.log( ACTION_TYPES.UPDATE_INGREDIENT_LIST );
   }
   handleChange(val) {
     this.setState({
@@ -19,6 +26,13 @@ class Ingredients extends Component {
     this.setState({
       input: ""
     });
+
+    let ingredientsAction = {
+      type: ACTION_TYPES.UPDATE_INGREDIENT_LIST,
+      payload: this.state.input
+    }
+
+    store.dispatch(ingredientsAction);
   }
   render() {
     const ingredients = this.state.ingredients.map((ingredient, i) => {

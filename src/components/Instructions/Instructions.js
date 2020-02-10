@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import store, { ACTION_TYPES } from '../../store';
 
 class Instructions extends Component {
   constructor(props) {
     super(props);
+    let reduxState = store.getState();
+    let { instructions } = reduxState;
     this.state = {
-      instructions: [],
+      instructions,
       input: ""
     };
+  }
+  componentDidMount(){
+    store.subscribe( () => this.setState({ instructions: store.getState().instructions }) );
   }
   handleChange(val) {
     this.setState({
@@ -19,9 +25,18 @@ class Instructions extends Component {
     this.setState({
       input: ""
     });
+    let instructionsAction = {
+      type: ACTION_TYPES.UPDATE_INSTRUCTIONS,
+      payload: this.state.input
+    }
+    store.dispatch(instructionsAction);
   }
   create() {
     // Create new recipe in Redux state
+    let newRecipeAction = { type: ACTION_TYPES.UPDATE_RECIPE_LIST }
+
+    store.dispatch(newRecipeAction);
+
   }
   render() {
     const instructions = this.state.instructions.map((instruction, i) => {
