@@ -22,19 +22,18 @@ class Instructions extends Component {
   }
   addInstruction() {
     // Send data to Redux state
-    this.setState({
-      input: ""
-    });
     let instructionsAction = {
       type: ACTION_TYPES.UPDATE_INSTRUCTIONS,
       payload: this.state.input
     }
     store.dispatch(instructionsAction);
+    this.setState({
+      input: ""
+    });
   }
   create() {
     // Create new recipe in Redux state
     let newRecipeAction = { type: ACTION_TYPES.UPDATE_RECIPE_LIST }
-
     store.dispatch(newRecipeAction);
 
   }

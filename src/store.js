@@ -17,7 +17,8 @@ export const ACTION_TYPES = {
     UPDATE_AUTHOR_LAST: 'update_author_last',
     UPDATE_INGREDIENT_LIST: 'update_ingredient_list',
     UPDATE_INSTRUCTIONS: 'update_instructions',
-    UPDATE_RECIPE_LIST: 'update_recipe_list'
+    UPDATE_RECIPE_LIST: 'update_recipe_list',
+    DELETE_RECIPE: 'delete_recipe'
 };
 
 var reducer = (state=initialState, action) => {
@@ -25,7 +26,7 @@ var reducer = (state=initialState, action) => {
     // Action:
     let { type, payload } = action;
     // Action Types:
-    let { UPDATE_RECIPE_NAME, UPDATE_RECIPE_CATEGORY, UPDATE_AUTHOR_FIRST, UPDATE_AUTHOR_LAST, UPDATE_INGREDIENT_LIST, UPDATE_INSTRUCTIONS, UPDATE_RECIPE_LIST } = ACTION_TYPES;
+    let { UPDATE_RECIPE_NAME, UPDATE_RECIPE_CATEGORY, UPDATE_AUTHOR_FIRST, UPDATE_AUTHOR_LAST, UPDATE_INGREDIENT_LIST, UPDATE_INSTRUCTIONS, UPDATE_RECIPE_LIST, DELETE_RECIPE } = ACTION_TYPES;
     // State Keys:
     let { name, category, authorFirst, authorLast, ingredients, instructions, recipes } = state;
 
@@ -73,7 +74,18 @@ var reducer = (state=initialState, action) => {
             }
             return{
                 ...state,
-                recipes: [...recipes, newRecipe]
+                recipes: [...recipes, newRecipe],
+                name: '',
+                category: '',
+                authorFirst: '',
+                authorLast: '',
+                ingredients: '',
+                instructions: ''
+            }
+        case DELETE_RECIPE:
+            return{
+                ...state,
+                recipes: action.payload
             }
         default: return state;
     }

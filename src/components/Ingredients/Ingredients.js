@@ -14,7 +14,6 @@ class Ingredients extends Component {
   }
   componentDidMount(){
     store.subscribe( () => this.setState({ ingredients: store.getState().ingredients }) );
-    console.log( ACTION_TYPES.UPDATE_INGREDIENT_LIST );
   }
   handleChange(val) {
     this.setState({
