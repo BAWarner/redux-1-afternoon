@@ -79,8 +79,8 @@ var reducer = (state=initialState, action) => {
                 category: '',
                 authorFirst: '',
                 authorLast: '',
-                ingredients: '',
-                instructions: ''
+                ingredients: [],
+                instructions: []
             }
         case DELETE_RECIPE:
             return{
